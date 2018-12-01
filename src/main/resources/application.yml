@@ -28,8 +28,8 @@ getui:
 
 # 极光推送
 jpush:
-  masterSecret: 166a8222bd4e7b6e661b97d8
-  appKey: 1380babcd5c9fdca637dae3c
+  masterSecret: 87654321
+  appKey: 12345678
 
 # 腾讯云短信
 qcloudsms:
