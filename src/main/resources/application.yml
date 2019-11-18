@@ -1,49 +1,34 @@
-server:
-  port: 12345
-
-# 消息推送
-msg:
-  maxPoolSize: 10
-  queueName: queue.appmsg
-
-# 短信推送
-sms:
-  maxPoolSize: 10
-  queueName: queue.sms
-
-# ActiveMQ
 spring:
-  activemq:
-    password: admin
-    user: admin
-    broker-url: tcp://localhost:61616
-    in-memory: false
+  profiles:
+    active: @environment@
+  boot:
+    admin:
+      client:
+        enabled: true
+        instance:
+          prefer-ip: true
+          name: @application.name@-@environment@
+  kafka:
+    consumer:
+      group-id: message-center-group
+      enable-auto-commit: true
+      auto-offset-reset: earliest
+      auto-commit-interval: 1000ms
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    listener:
+      concurrency: 3
 
-# 个推
-getui:
-  appId: 123456789
-  appKey: 987654321
-  masterSecret: qwertyuiop
-  url: http://sdk.open.api.igexin.com/apiex.htm
+logging:
+  file: @application.name@
+  level:
+    root: info
 
-# 极光推送
-jpush:
-  masterSecret: 87654321
-  appKey: 12345678
-
-# 腾讯云短信
-qcloudsms:
-  signName: 1234567
-  appId: 123456
-  appKey: 123456
-
-# 云片
-yunpian:
-  apiKey: 123456
-
-# 阿里大鱼短信
-aliyun:
-  accessKeyId: 1234567
-  accessKeySecret: 1234567
-  signName: 1234567
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always

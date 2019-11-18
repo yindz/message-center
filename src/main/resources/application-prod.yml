@@ -1,0 +1,46 @@
+server:
+  port: 12345
+  tomcat:
+    max-threads: 16
+
+spring:
+  boot:
+    admin:
+      client:
+        url: http://10.60.192.123:8006
+        username: monitor
+        password: ny07Aj2zRK3lhGXT
+  kafka:
+    bootstrap-servers: 10.60.192.123:9092
+  mail:
+    host: smtp.163.com
+    port: 567
+    username: johnsmith
+    password: 123456
+    default-encoding: UTF-8
+
+logging:
+  path: /tmp
+
+# 消息推送
+msg:
+  app-msg-pool-size: 16
+  sms-pool-size: 4
+  email-pool-size: 16
+  jpush-enabled: true
+  jpush-app-key: asdfghjkl
+  jpush-master-secret: poiuytrewq
+  getui-enabled: false
+  getui-app-id: 0987654321
+  getui-url: http://example.com
+  getui-master-secret: zxcvbnm
+  getui-app-key: 96854544
+  qcloud-sms-enabled: false
+  qcloud-sms-app-id: 11111111
+  qcloud-sms-app-key: 22222222
+  aliyun-sms-enabled: false
+  aliyun-sms-region: cn-hangzhou
+  aliyun-sms-access-key: 333333333
+  aliyun-sms-access-secret: 444444444
+  yunpian-sms-enabled: false
+  yunpian-sms-api-key: 555555555

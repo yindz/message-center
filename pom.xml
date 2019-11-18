@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.apifan.biz</groupId>
+    <groupId>com.apifan.standalone</groupId>
     <artifactId>message-center</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.7.RELEASE</version>
+        <version>2.1.9.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -22,12 +22,18 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <jpush-client.version>3.2.20</jpush-client.version>
-        <getui-sdk.version>4.1.0.0</getui-sdk.version>
-        <yunpian-sdk.version>1.2.7</yunpian-sdk.version>
-        <aliyun-java-sdk-core.version>4.0.6</aliyun-java-sdk-core.version>
-        <aliyun-dysms-sdk.version>1.1.0</aliyun-dysms-sdk.version>
-        <qcloud-sms-sdk.version>1.0.5</qcloud-sms-sdk.version>
+        <application.name>message-center</application.name>
+        <environment></environment>
+        <jpush-client.version>3.3.12</jpush-client.version>
+        <getui-sdk.version>4.1.0.4</getui-sdk.version>
+        <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
+        <spring-boot-admin.version>2.1.6</spring-boot-admin.version>
+        <spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
+        <guava.version>20.0</guava.version>
+        <commons-collections.version>4.1</commons-collections.version>
+        <commons-io.version>2.6</commons-io.version>
+        <commons-text.version>1.4</commons-text.version>
+        <okhttp.version>3.14.2</okhttp.version>
     </properties>
 
     <dependencies>
@@ -41,21 +47,12 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.retry</groupId>
             <artifactId>spring-retry</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -67,21 +64,29 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.springframework.retry</groupId>
-            <artifactId>spring-retry</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-activemq</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-to-slf4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
         <!-- 极光推送api -->
@@ -98,35 +103,72 @@
             <version>${getui-sdk.version}</version>
         </dependency>
 
-        <!-- 云片短信网关api -->
-        <dependency>
-            <groupId>com.yunpian.sdk</groupId>
-            <artifactId>yunpian-java-sdk</artifactId>
-            <version>${yunpian-sdk.version}</version>
-        </dependency>
-
-        <!-- 阿里云基础api -->
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-java-sdk-core</artifactId>
-            <version>${aliyun-java-sdk-core.version}</version>
         </dependency>
 
-        <!-- 阿里云大鱼短信api -->
         <dependency>
-            <groupId>com.aliyun</groupId>
-            <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
-            <version>${aliyun-dysms-sdk.version}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
 
-        <!-- 腾讯云短信api -->
         <dependency>
-            <groupId>com.github.qcloudsms</groupId>
-            <artifactId>qcloudsms</artifactId>
-            <version>${qcloud-sms-sdk.version}</version>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>${commons-collections.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${okhttp.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>${commons-text.version}</version>
+        </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-dependencies</artifactId>
+                <version>${spring-boot-admin.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <repositories>
         <repository>
@@ -135,13 +177,64 @@
         </repository>
     </repositories>
 
+    <profiles>
+        <!-- 开发(默认) -->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <environment>dev</environment>
+            </properties>
+        </profile>
+
+        <!-- 测试 -->
+        <profile>
+            <id>test</id>
+            <properties>
+                <environment>test</environment>
+            </properties>
+        </profile>
+
+        <!-- 生产 -->
+        <profile>
+            <id>prod</id>
+            <properties>
+                <environment>prod</environment>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
+        <finalName>${application.name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>application.yml</include>
+                    <include>application-${environment}.yml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>*.xml</include>
+                    <include>*.properties</include>
+                    <include>*.json</include>
+                    <include>config/**/*</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+
+        </resources>
     </build>
 
 
