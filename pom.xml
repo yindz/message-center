@@ -31,7 +31,7 @@
         <spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
         <guava.version>20.0</guava.version>
         <commons-collections.version>4.1</commons-collections.version>
-        <commons-io.version>2.6</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <commons-text.version>1.4</commons-text.version>
         <okhttp.version>3.14.2</okhttp.version>
     </properties>
